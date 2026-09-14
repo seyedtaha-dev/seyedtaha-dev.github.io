@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>آژانس مسافرتی سفرنو</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+  :root{
+    --sky:#0E7C9E; --sky-deep:#0A5A72; --sun:#FF8A3D; --sand:#FFF6EA; --ink:#123039; --line:#E3E1D8;
+  }
+  body{font-family:'Vazirmatn',Tahoma,sans-serif;background:var(--sand);color:var(--ink);line-height:1.85;overflow-x:hidden}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 26px}
+
+  .reveal{opacity:0;transform:translateY(30px);transition:opacity .8s ease,transform .8s ease}
+  .reveal.active{opacity:1;transform:translateY(0)}
+
+  header{padding:26px 0}
+  header .wrap{display:flex;align-items:center;justify-content:space-between}
+  .logo{font-size:1.2rem;font-weight:900;color:var(--sky-deep)}
+  .logo span{color:var(--sun)}
+  nav{display:flex;gap:28px;font-size:.9rem;color:var(--ink)}
+  nav a:hover{color:var(--sky)}
+  .nav-btn{padding:11px 24px;border-radius:10px;background:var(--sun);color:#fff;font-size:.85rem;font-weight:800}
+
+  /* hero */
+  .hero{position:relative;padding:50px 0 0;overflow:hidden}
+  .hero .wrap{position:relative;z-index:2;display:grid;grid-template-columns:1.05fr .95fr;gap:50px;align-items:center;padding-bottom:70px}
+  .hero-eyebrow{display:inline-flex;align-items:center;gap:8px;color:var(--sky-deep);font-weight:800;font-size:.92rem}
+  .hero h1{margin-top:20px;font-size:clamp(2.4rem,4.8vw,3.7rem);font-weight:900;line-height:1.32}
+  .hero h1 em{font-style:normal;color:var(--sun)}
+  .hero p{margin-top:22px;max-width:44ch;color:#3D5560;font-size:1.05rem}
+  .search-box{margin-top:32px;background:#fff;border-radius:16px;padding:18px;display:flex;gap:10px;flex-wrap:wrap;
+    box-shadow:0 24px 50px -28px rgba(18,48,57,.3)}
+  .search-box input{flex:1;min-width:160px;border:none;outline:none;font-family:inherit;font-size:.92rem;padding:10px 6px}
+  .search-box button{background:var(--sun);color:#fff;border:none;padding:12px 26px;border-radius:10px;font-weight:800;font-family:inherit;cursor:pointer;transition:filter .25s ease}
+  .search-box button:hover{filter:brightness(1.08)}
+
+  .hero-visual{position:relative;aspect-ratio:1/1}
+  .globe{width:100%;height:100%;border-radius:50%;background:radial-gradient(circle at 35% 30%,#28B8D6,var(--sky-deep) 75%);
+    position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;
+    animation:spin 40s linear infinite}
+  @keyframes spin{from{background-position:0 0}to{background-position:200px 0}}
+  .globe svg{width:60%;opacity:.85}
+  .plane{position:absolute;width:46px;animation:orbit 7s linear infinite}
+  @keyframes orbit{from{transform:rotate(0deg) translateX(150px) rotate(90deg)}to{transform:rotate(360deg) translateX(150px) rotate(450deg)}}
+
+  .route-strip{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:#fff}
+  .route-strip svg{display:block;width:100%;height:60px}
+  .route-path{stroke-dasharray:14 10;stroke-dashoffset:1000;transition:stroke-dashoffset 2s ease}
+  .route-path.active{stroke-dashoffset:0}
+
+  .section{padding:96px 0}
+  .section-head{max-width:580px;margin-bottom:52px}
+  .section-head .eyebrow{color:var(--sun);font-weight:800;font-size:.88rem}
+  .section-head h2{margin-top:10px;font-size:clamp(1.8rem,3.2vw,2.3rem);font-weight:900}
+
+  .destinations{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+  .dest{border-radius:18px;overflow:hidden;position:relative;aspect-ratio:3/4;
+    display:flex;align-items:flex-end;padding:20px;color:#fff;transition:transform .4s ease;
+    background-size:cover;background-position:center;background-repeat:no-repeat;
+    box-shadow:0 18px 40px -24px rgba(18,48,57,.45)}
+  .dest:hover{transform:translateY(-8px)}
+  .dest::before{content:"";position:absolute;inset:0;opacity:1;
+    background:linear-gradient(0deg,rgba(0,0,0,.72),rgba(0,0,0,.08) 62%,rgba(0,0,0,.02))}
+  .dest::after{content:"";position:absolute;inset:0;opacity:0;transition:opacity .4s ease;
+    background:linear-gradient(0deg,rgba(0,0,0,.82),rgba(14,124,158,.08) 65%,transparent)}
+  .dest:hover::after{opacity:1}
+  .dest span{position:relative;z-index:2;font-weight:800;font-size:1.05rem;text-shadow:0 2px 12px rgba(0,0,0,.35)}
+  .dest small{position:relative;z-index:2;display:block;font-size:.78rem;opacity:.9;margin-top:2px}
+  .d1{background-image:url("images/istanbul.jpg")}
+  .d2{background-image:url("images/dubai.jpg")}
+  .d3{background-image:url("images/kualalumpur.jpg")}
+  .d4{background-image:url("images/georgia.jpg")}
+
+  .packages{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .pkg{background:#fff;border-radius:18px;padding:30px 26px;box-shadow:0 20px 40px -30px rgba(18,48,57,.3);
+    border:2px solid transparent;transition:border-color .3s ease,transform .3s ease}
+  .pkg:hover{transform:translateY(-6px);border-color:var(--sun)}
+  .pkg h3{font-size:1.1rem;font-weight:800}
+  .pkg .price{margin-top:10px;font-size:1.6rem;font-weight:900;color:var(--sky-deep)}
+  .pkg .price small{font-size:.8rem;color:#7A8C93;font-weight:500}
+  .pkg ul{margin-top:16px;display:flex;flex-direction:column;gap:8px}
+  .pkg li{font-size:.86rem;color:#3D5560;display:flex;gap:8px}
+  .pkg li::before{content:"✓";color:var(--sun);font-weight:800}
+
+  .testi{background:var(--sky-deep);color:#fff}
+  .testi .wrap{padding:90px 26px;text-align:center;max-width:680px}
+  .testi p{font-size:clamp(1.2rem,2.2vw,1.4rem);font-weight:600;line-height:1.8}
+  .testi cite{display:block;margin-top:22px;font-style:normal;color:#AFD8E3;font-size:.88rem;font-weight:700}
+
+  .cta-band .wrap{padding:90px 26px;text-align:center}
+  .cta-band h2{font-size:clamp(1.8rem,3.4vw,2.5rem);font-weight:900}
+  .cta-band p{margin-top:14px;color:#3D5560}
+  .cta-band .nav-btn{display:inline-block;margin-top:28px;padding:16px 34px;font-size:.95rem}
+
+  footer{padding:30px 0;text-align:center;color:#7A8C93;font-size:.82rem}
+
+  @media(max-width:900px){
+    nav,.hero .nav-btn{display:none}
+    .hero .wrap{grid-template-columns:1fr}
+    .destinations{grid-template-columns:1fr 1fr}
+    .packages{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="logo">سفر<span>نو</span></div>
+    <nav>
+      <a href="#destinations">مقصدها</a>
+      <a href="#packages">پکیج‌ها</a>
+      <a href="#contact">تماس</a>
+    </nav>
+    <a href="#contact" class="nav-btn">مشاوره سفر</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <span class="hero-eyebrow">✈ بیش از ۴۰ مقصد فعال</span>
+      <h1>سفر بعدیت رو<br><em>همین امروز</em> برنامه‌ریزی کن</h1>
+      <p>از رزرو بلیط تا هتل و تور، همه‌چیز رو برات آماده می‌کنیم — با بهترین قیمت و بدون دردسر.</p>
+      <div class="search-box">
+        <input type="text" placeholder="مقصد موردنظرت رو بنویس...">
+        <button>جستجوی تور</button>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="globe">
+        <svg viewBox="0 0 100 100" fill="none">
+          <circle cx="50" cy="50" r="34" stroke="#fff" stroke-width="1.4" opacity=".5"/>
+          <ellipse cx="50" cy="50" rx="34" ry="14" stroke="#fff" stroke-width="1.2" opacity=".4"/>
+          <ellipse cx="50" cy="50" rx="14" ry="34" stroke="#fff" stroke-width="1.2" opacity=".4"/>
+        </svg>
+        <svg class="plane" viewBox="0 0 24 24" fill="#fff"><path d="M21 16v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V19l-2.5 1.8V22l4-1 4 1v-1.2L13 19v-5.5z"/></svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="route-strip">
+  <svg viewBox="0 0 1160 60" preserveAspectRatio="none">
+    <path class="route-path" d="M0 40 Q 200 0 400 35 T 800 30 T 1160 20" fill="none" stroke="#FF8A3D" stroke-width="3"/>
+  </svg>
+</div>
+
+<section class="section reveal" id="destinations">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">مقصدهای پرطرفدار</span>
+      <h2>کجا رو دوست داری ببینی؟</h2>
+    </div>
+    <div class="destinations">
+      <div class="dest d1"><span>استانبول</span></div>
+      <div class="dest d2"><span>دبی</span></div>
+      <div class="dest d3"><span>کوالالامپور</span></div>
+      <div class="dest d4"><span>گرجستان</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="section reveal" id="packages">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">پکیج‌های سفر</span>
+      <h2>پکیجی که مناسب توئه</h2>
+    </div>
+    <div class="packages">
+      <div class="pkg">
+        <h3>استانبول ۴ شب</h3>
+        <div class="price">۱۲.۵ <small>میلیون تومان</small></div>
+        <ul><li>پرواز رفت و برگشت</li><li>هتل ۴ ستاره</li><li>ترانسفر فرودگاهی</li></ul>
+      </div>
+      <div class="pkg">
+        <h3>دبی ۵ شب</h3>
+        <div class="price">۱۸ <small>میلیون تومان</small></div>
+        <ul><li>پرواز رفت و برگشت</li><li>هتل ۵ ستاره</li><li>تور شهری</li></ul>
+      </div>
+      <div class="pkg">
+        <h3>گرجستان ۶ شب</h3>
+        <div class="price">۱۴ <small>میلیون تومان</small></div>
+        <ul><li>پرواز رفت و برگشت</li><li>هتل ۴ ستاره</li><li>بیمه مسافرتی</li></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="testi reveal">
+  <div class="wrap">
+    <p>«از رزرو تا برگشت همه‌چیز عالی هماهنگ شده بود، خیالمون کاملاً راحت بود.»</p>
+    <cite>— خانواده رضایی</cite>
+  </div>
+</section>
+
+<section class="section cta-band reveal" id="contact">
+  <div class="wrap">
+    <h2>آماده‌ی یه سفر جدید هستی؟</h2>
+    <p>مشاوره رایگان برای انتخاب بهترین مقصد و پکیج</p>
+    <a href="index.html#order" class="nav-btn">ثبت سفارش</a>
+  </div>
+</section>
+
+<footer>این یک نمونه‌کار مفهومی است — طراحی: سید طاها تقوی</footer>
+
+<script>
+  const revealEls = document.querySelectorAll(".reveal");
+  const route = document.querySelector(".route-path");
+  if("IntersectionObserver" in window){
+    const obs = new IntersectionObserver(entries=>{
+      entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add("active"); obs.unobserve(e.target);} });
+    },{threshold:.15});
+    revealEls.forEach(el=>obs.observe(el));
+    const routeObs = new IntersectionObserver(entries=>{
+      entries.forEach(e=>{ if(e.isIntersecting){ route.classList.add("active"); routeObs.disconnect(); } });
+    },{threshold:.5});
+    routeObs.observe(route);
+  } else {
+    revealEls.forEach(el=>el.classList.add("active"));
+    route.classList.add("active");
+  }
+</script>
+
+</body>
+</html>

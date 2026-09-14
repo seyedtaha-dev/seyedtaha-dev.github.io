@@ -1,0 +1,1168 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>استودیو عکاسی نگاتیو</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100;300;400;600;800;900&display=swap"
+    rel="stylesheet"
+  >
+
+  <style>
+
+    /* =========================
+       RESET
+    ========================= */
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "Vazirmatn", Tahoma, sans-serif;
+      background: #0a0a0a;
+      color: #f3f1ec;
+      line-height: 1.8;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+
+    /* =========================
+       VARIABLES
+    ========================= */
+
+    :root {
+      --black: #0a0a0a;
+      --dark: #111111;
+      --dark-2: #171717;
+      --white: #f3f1ec;
+      --gray: #999999;
+      --line: #292929;
+      --gold: #c97a3d;
+    }
+
+
+    /* =========================
+       CONTAINER
+    ========================= */
+
+    .wrap {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 26px;
+    }
+
+
+    /* =========================
+       ANIMATIONS
+    ========================= */
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition:
+        opacity 1s ease,
+        transform 1s ease;
+    }
+
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
+
+
+    /* =========================
+       HEADER
+    ========================= */
+
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 50;
+
+      padding: 26px 0;
+
+      background: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, .55),
+        transparent
+      );
+
+      backdrop-filter: blur(3px);
+    }
+
+    header .wrap {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-size: 1.15rem;
+      font-weight: 300;
+      letter-spacing: 7px;
+    }
+
+    nav {
+      display: flex;
+      gap: 32px;
+      font-size: .82rem;
+      color: #c9c9c9;
+    }
+
+    nav a {
+      position: relative;
+      transition: color .3s ease;
+    }
+
+    nav a::after {
+      content: "";
+      position: absolute;
+      right: 0;
+      bottom: -7px;
+
+      width: 0;
+      height: 1px;
+
+      background: var(--gold);
+
+      transition: width .3s ease;
+    }
+
+    nav a:hover {
+      color: var(--white);
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+
+    /* =========================
+       HERO
+    ========================= */
+
+    .hero {
+      height: 100vh;
+      min-height: 650px;
+
+      position: relative;
+
+      display: flex;
+      align-items: flex-end;
+
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+
+      background:
+        linear-gradient(
+          120deg,
+          rgba(0,0,0,.85),
+          rgba(0,0,0,.35),
+          rgba(0,0,0,.85)
+        ),
+        url("images/portrait.jpg") center / cover no-repeat;
+
+      transform: scale(1.03);
+
+      animation: heroZoom 12s ease-in-out infinite alternate;
+    }
+
+    @keyframes heroZoom {
+      from {
+        transform: scale(1.03);
+      }
+
+      to {
+        transform: scale(1.08);
+      }
+    }
+
+    .hero-bg::after {
+      content: "";
+
+      position: absolute;
+      inset: 0;
+
+      background:
+        linear-gradient(
+          180deg,
+          rgba(0,0,0,.05) 20%,
+          rgba(0,0,0,.95) 100%
+        );
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+
+      width: 100%;
+      padding-bottom: 90px;
+    }
+
+    .hero-content .wrap {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+
+    .hero h1 {
+      font-size: clamp(4rem, 11vw, 9rem);
+
+      font-weight: 900;
+
+      line-height: .9;
+
+      letter-spacing: -4px;
+
+      text-shadow:
+        0 10px 40px rgba(0,0,0,.7);
+    }
+
+    .hero .sub {
+      max-width: 34ch;
+
+      font-size: 1rem;
+
+      color: #d0d0d0;
+
+      line-height: 2;
+    }
+
+    .scroll-hint {
+      position: absolute;
+
+      bottom: 28px;
+      left: 26px;
+
+      font-size: .7rem;
+
+      color: #999;
+
+      letter-spacing: 2px;
+
+      writing-mode: vertical-rl;
+
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .scroll-hint i {
+      width: 1px;
+      height: 38px;
+
+      background: #999;
+
+      display: block;
+
+      animation: grow 1.8s ease-in-out infinite;
+    }
+
+    @keyframes grow {
+
+      0%,
+      100% {
+        transform: scaleY(.4);
+      }
+
+      50% {
+        transform: scaleY(1);
+      }
+    }
+
+
+    /* =========================
+       SECTION
+    ========================= */
+
+    .section {
+      padding: 120px 0;
+    }
+
+    .section-head {
+      display: flex;
+
+      justify-content: space-between;
+      align-items: flex-end;
+
+      margin-bottom: 50px;
+
+      gap: 25px;
+
+      flex-wrap: wrap;
+    }
+
+    .section-head span {
+      font-size: .78rem;
+
+      letter-spacing: 3px;
+
+      color: var(--gold);
+
+      font-weight: 700;
+    }
+
+    .section-head h2 {
+      margin-top: 10px;
+
+      font-size: clamp(2rem, 4vw, 3rem);
+
+      font-weight: 800;
+    }
+
+    .section-head p {
+      max-width: 34ch;
+
+      font-size: .88rem;
+
+      color: var(--gray);
+    }
+
+
+    /* =========================
+       GALLERY
+    ========================= */
+
+    .gallery {
+      display: grid;
+
+      grid-template-columns: repeat(4, 1fr);
+
+      grid-auto-rows: 150px;
+
+      gap: 12px;
+    }
+
+    .g-item {
+      position: relative;
+
+      overflow: hidden;
+
+      background: #151515;
+
+      border: 1px solid #222;
+
+      cursor: pointer;
+    }
+
+    .g-item img {
+      width: 100%;
+      height: 100%;
+
+      display: block;
+
+      object-fit: cover;
+
+      transition:
+        transform .8s cubic-bezier(.2,.8,.2,1),
+        filter .8s ease;
+    }
+
+    .g-item::after {
+      content: "";
+
+      position: absolute;
+
+      inset: 0;
+
+      background:
+        linear-gradient(
+          180deg,
+          transparent 45%,
+          rgba(0,0,0,.85)
+        );
+
+      opacity: .25;
+
+      transition: opacity .5s ease;
+
+      z-index: 1;
+    }
+
+    .g-item::before {
+      content: attr(data-cap);
+
+      position: absolute;
+
+      bottom: 18px;
+      right: 18px;
+
+      z-index: 3;
+
+      font-size: .78rem;
+
+      color: white;
+
+      opacity: 0;
+
+      transform: translateY(10px);
+
+      transition:
+        opacity .4s ease,
+        transform .4s ease;
+    }
+
+    .g-item:hover img {
+      transform: scale(1.08);
+
+      filter:
+        brightness(1.08)
+        contrast(1.05);
+    }
+
+    .g-item:hover::after {
+      opacity: .8;
+    }
+
+    .g-item:hover::before {
+      opacity: 1;
+
+      transform: translateY(0);
+    }
+
+
+    /* Gallery Sizes */
+
+    .g1 {
+      grid-column: span 2;
+      grid-row: span 2;
+    }
+
+    .g2 {
+      grid-column: span 1;
+      grid-row: span 2;
+    }
+
+    .g3 {
+      grid-column: span 1;
+      grid-row: span 2;
+    }
+
+    .g4 {
+      grid-column: span 1;
+      grid-row: span 2;
+    }
+
+    .g5 {
+      grid-column: span 2;
+      grid-row: span 2;
+    }
+
+    .g6 {
+      grid-column: span 2;
+      grid-row: span 2;
+    }
+
+
+    /* =========================
+       SERVICES
+    ========================= */
+
+    .svc-list {
+      display: flex;
+
+      flex-direction: column;
+    }
+
+    .svc-row {
+      display: flex;
+
+      justify-content: space-between;
+      align-items: center;
+
+      padding: 28px 0;
+
+      border-bottom: 1px solid var(--line);
+
+      transition:
+        padding-right .3s ease,
+        border-color .3s ease;
+    }
+
+    .svc-row:first-child {
+      border-top: 1px solid var(--line);
+    }
+
+    .svc-row:hover {
+      padding-right: 16px;
+
+      border-color: var(--gold);
+    }
+
+    .svc-row h3 {
+      font-size: 1.25rem;
+
+      font-weight: 600;
+    }
+
+    .svc-row span {
+      font-size: .85rem;
+
+      color: var(--gray);
+    }
+
+
+    /* =========================
+       TESTIMONIAL
+    ========================= */
+
+    .testi {
+      border-top: 1px solid var(--line);
+
+      border-bottom: 1px solid var(--line);
+    }
+
+    .testi .wrap {
+      padding: 110px 26px;
+
+      text-align: center;
+
+      max-width: 750px;
+    }
+
+    .testi p {
+      font-size: clamp(1.4rem, 3vw, 2rem);
+
+      font-weight: 300;
+
+      line-height: 1.8;
+    }
+
+    .testi cite {
+      display: block;
+
+      margin-top: 25px;
+
+      font-style: normal;
+
+      color: var(--gray);
+
+      font-size: .85rem;
+    }
+
+
+    /* =========================
+       CTA
+    ========================= */
+
+    .cta-band {
+      text-align: center;
+    }
+
+    .cta-band h2 {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+
+      font-weight: 900;
+    }
+
+    .cta-band p {
+      margin-top: 15px;
+
+      color: var(--gray);
+    }
+
+    .btn {
+      display: inline-block;
+
+      margin-top: 32px;
+
+      padding: 17px 42px;
+
+      border: 1px solid var(--white);
+
+      font-size: .9rem;
+
+      letter-spacing: .5px;
+
+      transition:
+        background .3s ease,
+        color .3s ease,
+        transform .3s ease;
+    }
+
+    .btn:hover {
+      background: var(--white);
+
+      color: var(--black);
+
+      transform: translateY(-3px);
+    }
+
+
+    /* =========================
+       FOOTER
+    ========================= */
+
+    footer {
+      padding: 35px 0;
+
+      text-align: center;
+
+      color: #777;
+
+      font-size: .78rem;
+
+      border-top: 1px solid #1d1d1d;
+    }
+
+
+    /* =========================
+       RESPONSIVE
+    ========================= */
+
+    @media (max-width: 900px) {
+
+      nav {
+        display: none;
+      }
+
+      .gallery {
+        grid-template-columns: repeat(2, 1fr);
+
+        grid-auto-rows: 180px;
+      }
+
+      .g1,
+      .g5,
+      .g6 {
+        grid-column: span 2;
+      }
+
+      .g2,
+      .g3,
+      .g4 {
+        grid-column: span 1;
+      }
+
+    }
+
+
+    @media (max-width: 600px) {
+
+      .wrap {
+        padding: 0 18px;
+      }
+
+      .section {
+        padding: 85px 0;
+      }
+
+      .hero {
+        min-height: 600px;
+      }
+
+      .hero-content {
+        padding-bottom: 70px;
+      }
+
+      .hero h1 {
+        font-size: 4.2rem;
+
+        letter-spacing: -2px;
+      }
+
+      .hero .sub {
+        font-size: .9rem;
+      }
+
+      .gallery {
+        grid-template-columns: 1fr;
+
+        grid-auto-rows: 260px;
+
+        gap: 10px;
+      }
+
+      .g1,
+      .g2,
+      .g3,
+      .g4,
+      .g5,
+      .g6 {
+        grid-column: span 1;
+
+        grid-row: span 1;
+      }
+
+      .svc-row {
+        align-items: flex-start;
+
+        flex-direction: column;
+
+        gap: 5px;
+
+        padding: 22px 0;
+      }
+
+      .svc-row h3 {
+        font-size: 1.1rem;
+      }
+
+      .testi .wrap {
+        padding: 80px 20px;
+      }
+
+      .scroll-hint {
+        display: none;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+
+  <!-- =========================
+       HEADER
+  ========================= -->
+
+  <header>
+
+    <div class="wrap">
+
+      <div class="logo">
+        نگاتیو
+      </div>
+
+      <nav>
+
+        <a href="#gallery">
+          گالری
+        </a>
+
+        <a href="#services">
+          خدمات
+        </a>
+
+        <a href="#contact">
+          تماس
+        </a>
+
+      </nav>
+
+    </div>
+
+  </header>
+
+
+  <!-- =========================
+       HERO
+  ========================= -->
+
+  <section class="hero">
+
+    <div class="hero-bg"></div>
+
+    <div class="hero-content">
+
+      <div class="wrap">
+
+        <h1>
+          نگاتیو
+        </h1>
+
+        <p class="sub">
+          استودیو عکاسی تخصصی — پرتره، عروسی و صنعتی.
+          لحظه‌ها رو طوری ثبت می‌کنیم که واقعاً بمونن.
+        </p>
+
+      </div>
+
+    </div>
+
+    <div class="scroll-hint">
+
+      <i></i>
+
+      اسکرول کن
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       GALLERY
+  ========================= -->
+
+  <section
+    class="section reveal"
+    id="gallery"
+  >
+
+    <div class="wrap">
+
+      <div class="section-head">
+
+        <div>
+
+          <span>
+            گالری
+          </span>
+
+          <h2>
+            چند کار اخیر
+          </h2>
+
+        </div>
+
+        <p>
+          هر پروژه یه داستانه — این چندتاشونه
+        </p>
+
+      </div>
+
+
+      <div class="gallery">
+
+
+        <!-- 01 Portrait -->
+
+        <div
+          class="g-item g1"
+          data-cap="پرتره — مینیمال"
+        >
+
+          <img
+            src="images/portrait.jpg"
+            alt="پرتره مینیمال"
+          >
+
+        </div>
+
+
+        <!-- 02 Wedding -->
+
+        <div
+          class="g-item g2"
+          data-cap="عروسی"
+        >
+
+          <img
+            src="images/wedding.jpg"
+            alt="عکاسی عروسی"
+          >
+
+        </div>
+
+
+        <!-- 03 Architecture -->
+
+        <div
+          class="g-item g3"
+          data-cap="معماری"
+        >
+
+          <img
+            src="images/architecture.jpg"
+            alt="عکاسی معماری"
+          >
+
+        </div>
+
+
+        <!-- 04 Street -->
+
+        <div
+          class="g-item g4"
+          data-cap="عکاسی خیابانی"
+        >
+
+          <img
+            src="images/street.jpg"
+            alt="عکاسی خیابانی"
+          >
+
+        </div>
+
+
+        <!-- 05 Industrial -->
+
+        <div
+          class="g-item g5"
+          data-cap="صنعتی — کارخانه"
+        >
+
+          <img
+            src="images/industrial.jpg"
+            alt="عکاسی صنعتی"
+          >
+
+        </div>
+
+
+        <!-- 06 Nature -->
+
+        <div
+          class="g-item g6"
+          data-cap="طبیعت"
+        >
+
+          <img
+            src="images/nature.jpg"
+            alt="عکاسی طبیعت"
+          >
+
+        </div>
+
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       SERVICES
+  ========================= -->
+
+  <section
+    class="section reveal"
+    id="services"
+  >
+
+    <div class="wrap">
+
+      <div class="section-head">
+
+        <div>
+
+          <span>
+            خدمات
+          </span>
+
+          <h2>
+            چه کاری انجام می‌دیم
+          </h2>
+
+        </div>
+
+      </div>
+
+
+      <div class="svc-list">
+
+
+        <div class="svc-row">
+
+          <h3>
+            عکاسی پرتره و خانوادگی
+          </h3>
+
+          <span>
+            استودیو یا فضای باز
+          </span>
+
+        </div>
+
+
+        <div class="svc-row">
+
+          <h3>
+            عکاسی عروسی
+          </h3>
+
+          <span>
+            ثبت کامل مراسم
+          </span>
+
+        </div>
+
+
+        <div class="svc-row">
+
+          <h3>
+            عکاسی محصول و تبلیغاتی
+          </h3>
+
+          <span>
+            برای فروشگاه و برند شما
+          </span>
+
+        </div>
+
+
+        <div class="svc-row">
+
+          <h3>
+            عکاسی معماری و فضای داخلی
+          </h3>
+
+          <span>
+            برای املاک و پروژه‌های ساختمانی
+          </span>
+
+        </div>
+
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       TESTIMONIAL
+  ========================= -->
+
+  <section class="testi reveal">
+
+    <div class="wrap">
+
+      <p>
+        «عکس‌های عروسی‌مون دقیقاً همون حسی رو داره که اون روز داشتیم.»
+      </p>
+
+      <cite>
+        — سارا و امیر
+      </cite>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       CTA
+  ========================= -->
+
+  <section
+    class="section cta-band reveal"
+    id="contact"
+  >
+
+    <div class="wrap">
+
+      <h2>
+        بیا یه جلسه عکاسی هماهنگ کنیم
+      </h2>
+
+      <p>
+        برای رزرو وقت، پیام بده
+      </p>
+
+      <a
+        href="index.html#order"
+        class="btn"
+      >
+        ثبت سفارش
+      </a>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       FOOTER
+  ========================= -->
+
+  <footer>
+
+    این یک نمونه‌کار مفهومی و برای نمیش دادن هنرهای ساده خوداست — طراحی: سید طاها تقوی
+
+  </footer>
+
+
+  <!-- =========================
+       JAVASCRIPT
+  ========================= -->
+
+  <script>
+
+    const revealEls =
+      document.querySelectorAll(".reveal");
+
+
+    if ("IntersectionObserver" in window) {
+
+      const obs =
+        new IntersectionObserver(
+
+          entries => {
+
+            entries.forEach(entry => {
+
+              if (entry.isIntersecting) {
+
+                entry.target.classList.add("active");
+
+                obs.unobserve(entry.target);
+
+              }
+
+            });
+
+          },
+
+          {
+            threshold: 0.12
+          }
+
+        );
+
+
+      revealEls.forEach(el => {
+
+        obs.observe(el);
+
+      });
+
+    } else {
+
+      revealEls.forEach(el => {
+
+        el.classList.add("active");
+
+      });
+
+    }
+
+  </script>
+
+
+</body>
+
+</html>

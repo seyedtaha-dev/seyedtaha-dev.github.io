@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ 
+  <title>نمونه‌کار طراحی کارت ویزیت</title>
+ 
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+ 
+  <style>
+    :root {
+      --bg: #050b14;
+      --card: #0b1422;
+      --line: rgba(77, 160, 255, .25);
+      --blue: #00a8ff;
+      --text: #f4f8ff;
+      --muted: #91a2b8;
+    }
+ 
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+ 
+    body {
+      font-family: "Vazirmatn", Tahoma, sans-serif;
+      background:
+        radial-gradient(circle at 50% 0%, rgba(0, 132, 255, .12), transparent 35%),
+        linear-gradient(145deg, #030811, #071321 60%, #030811);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+ 
+    .container {
+      width: min(1450px, 94%);
+      margin: auto;
+    }
+ 
+    /* HEADER */
+ 
+    header {
+      padding: 55px 0 35px;
+      text-align: center;
+    }
+ 
+    .badge {
+      display: inline-block;
+      color: #54c8ff;
+      font-size: 13px;
+      margin-bottom: 15px;
+    }
+ 
+    header h1 {
+      font-size: clamp(30px, 4vw, 54px);
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+ 
+    header h1 span {
+      color: var(--blue);
+    }
+ 
+    header p {
+      max-width: 700px;
+      margin: auto;
+      color: var(--muted);
+      line-height: 2;
+      font-size: 15px;
+    }
+ 
+    /* GRID */
+ 
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 22px;
+      padding-bottom: 60px;
+    }
+ 
+    .portfolio-card {
+      display: grid;
+      grid-template-columns: 58% 42%;
+      min-height: 285px;
+      background: linear-gradient(145deg, #0b1420, #07101c);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      overflow: hidden;
+      text-decoration: none;
+      color: inherit;
+      box-shadow: 0 20px 50px rgba(0,0,0,.25);
+      opacity: 0;
+      transform: translateY(30px);
+      transition: transform .45s cubic-bezier(.2,.8,.2,1), box-shadow .45s ease, opacity .6s ease, border-color .45s ease;
+    }
+    .portfolio-card.in-view { opacity: 1; transform: translateY(0); }
+    .portfolio-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 30px 70px rgba(0,0,0,.4);
+      border-color: rgba(77,160,255,.55);
+    }
+/* BUSINESS CARD VISUAL */
+ 
+    .visual {
+      min-height: 285px;
+      padding: 25px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      background-size: cover;
+      background-position: center;
+    }
+ 
+    .visual::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(5,8,14,.35), rgba(5,8,14,.88));
+      opacity: 0;
+      transition: opacity .4s ease;
+    }
+    .visual.has-photo::before { opacity: 1; }
+ 
+    .visual::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(120deg, transparent, rgba(255,255,255,.04));
+      pointer-events: none;
+    }
+ 
+    .business-card {
+      width: 82%;
+      aspect-ratio: 1.6 / 1;
+      border-radius: 13px;
+      z-index: 2;
+      transition: transform .5s cubic-bezier(.2,.8,.2,1);
+      padding: 22px;
+      position: relative;
+      box-shadow: 0 25px 45px rgba(0,0,0,.45);
+    }
+.business-card.back {
+      position: absolute;
+      width: 60%;
+      transform: rotate(7deg) translate(35px, 45px);
+      opacity: .92;
+      transition: transform .5s cubic-bezier(.2,.8,.2,1), opacity .5s ease;
+    }
+    .portfolio-card:hover .business-card.back {
+      transform: rotate(11deg) translate(46px, 56px);
+      opacity: 1;
+    }
+    .portfolio-card:hover .business-card:not(.back) {
+      transform: translateY(-6px) scale(1.03);
+    }
+.card-logo {
+      font-size: 26px;
+      font-weight: 800;
+      margin-bottom: 30px;
+    }
+ 
+    .card-name {
+      font-size: 18px;
+      font-weight: 800;
+    }
+ 
+    .card-role {
+      font-size: 9px;
+      margin-top: 5px;
+      opacity: .75;
+      letter-spacing: 1px;
+    }
+ 
+    .card-info {
+      position: absolute;
+      bottom: 18px;
+      right: 22px;
+      font-size: 9px;
+      line-height: 1.9;
+      opacity: .85;
+    }
+ 
+    /* CARD 1 */
+ 
+    .royal {
+      background:
+        radial-gradient(circle at 80% 20%, rgba(255,181,50,.12), transparent 35%),
+        linear-gradient(135deg,#0b0b0b,#1c1710);
+      color: #e7ad43;
+      border: 1px solid rgba(218,164,64,.4);
+    }
+ 
+    .royal .card-name {
+      color: #f4bd55;
+    }
+ 
+    /* CARD 2 */
+ 
+    .medical {
+      background: linear-gradient(135deg,#f4f7f8,#dce8ec);
+      color: #164457;
+      border: 1px solid #b8d4dc;
+    }
+ 
+    .medical .card-name {
+      color: #17647c;
+    }
+ 
+    /* CARD 3 */
+ 
+    .fashion {
+      background:
+        linear-gradient(135deg,#080808,#211b1b);
+      color: #d9c5a3;
+      border: 1px solid rgba(217,197,163,.3);
+    }
+ 
+    /* CARD 4 */
+ 
+    .realestate {
+      background:
+        linear-gradient(135deg,#10161b,#050708);
+      color: #dce8df;
+      border: 1px solid rgba(67,210,133,.25);
+    }
+ 
+    .realestate .card-logo {
+      color: #50d88a;
+    }
+ 
+    /* CARD 5 */
+ 
+    .tech {
+      background:
+        radial-gradient(circle at 20% 80%,rgba(0,123,255,.35),transparent 35%),
+        linear-gradient(135deg,#050b17,#071a38);
+      color: #55c5ff;
+      border: 1px solid rgba(0,139,255,.45);
+    }
+ 
+    /* CARD 6 */
+ 
+    .travel {
+      background:
+        linear-gradient(135deg,#eaf8ff,#bce8fa);
+      color: #12628b;
+      border: 1px solid #7ed1ef;
+    }
+ 
+    .travel .card-name {
+      color: #126a97;
+    }
+ 
+    /* CARD 7 */
+ 
+    .barber {
+      background:
+        linear-gradient(135deg,#090909,#1b0809);
+      color: #f05c5c;
+      border: 1px solid rgba(255,60,60,.35);
+    }
+ 
+    .barber .card-name {
+      color: #ef7373;
+    }
+ 
+    /* CARD 8 */
+ 
+    .creative {
+      background:
+        radial-gradient(circle at 80% 20%,rgba(184,53,255,.3),transparent 30%),
+        linear-gradient(135deg,#090918,#16102a);
+      color: #d6a9ff;
+      border: 1px solid rgba(181,72,255,.4);
+    }
+ 
+    .creative .card-name {
+      color: #d69bff;
+    }
+ 
+    /* INFO */
+ 
+    .info {
+      padding: 35px 30px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+ 
+    .category {
+      display: inline-block;
+      width: fit-content;
+      padding: 6px 12px;
+      border-radius: 8px;
+      background: rgba(0,157,255,.1);
+      color: #48c6ff;
+      font-size: 11px;
+      margin-bottom: 14px;
+    }
+ 
+    .info h2 {
+      font-size: 21px;
+      margin-bottom: 12px;
+    }
+ 
+    .info p {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 2;
+      margin-bottom: 20px;
+    }
+ 
+    .view {
+      width: fit-content;
+      color: #43c6ff;
+      font-size: 13px;
+      font-weight: 700;
+      border-bottom: 1px solid rgba(67,198,255,.3);
+      padding-bottom: 5px;
+    }
+ 
+ 
+    .sample-modal{position:fixed;inset:0;background:rgba(1,6,12,.82);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;padding:20px;z-index:9999}
+    .sample-modal:target{display:flex;animation:modal-bg-fade .3s ease}
+    @keyframes modal-bg-fade{from{opacity:0}to{opacity:1}}
+    .modal-box{width:min(760px,100%);background:#0b1422;border:1px solid var(--line);border-radius:18px;padding:28px;position:relative;box-shadow:0 30px 90px rgba(0,0,0,.6);animation:modal-pop .35s cubic-bezier(.2,.8,.2,1)}
+    @keyframes modal-pop{from{opacity:0;transform:translateY(18px) scale(.96)}to{opacity:1;transform:translateY(0) scale(1)}}
+    .modal-close{position:absolute;top:14px;left:16px;color:#91a2b8;text-decoration:none;font-size:24px;line-height:1}
+    .modal-box h2{margin-bottom:10px}.modal-box p{color:var(--muted);line-height:2;font-size:14px}.modal-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}.modal-btn{display:inline-block;text-decoration:none;padding:11px 16px;border-radius:10px;border:1px solid var(--line);color:#55c8ff}.modal-btn.primary{background:var(--blue);color:#03101b;border-color:var(--blue);font-weight:800}
+ 
+    /* FOOTER */
+ 
+    .bottom {
+      text-align: center;
+      padding: 25px 0 55px;
+      border-top: 1px solid rgba(255,255,255,.06);
+    }
+ 
+    .bottom h2 {
+      font-size: 25px;
+      margin-bottom: 10px;
+    }
+ 
+    .bottom p {
+      color: var(--muted);
+      font-size: 13px;
+    }
+ 
+    /* RESPONSIVE */
+ 
+    @media (max-width: 950px) {
+      .cards-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+ 
+    @media (max-width: 650px) {
+      header {
+        padding-top: 35px;
+      }
+ 
+      .portfolio-card {
+        grid-template-columns: 1fr;
+      }
+ 
+      .visual {
+        min-height: 250px;
+      }
+ 
+      .info {
+        padding: 25px;
+      }
+ 
+      .business-card {
+        width: 72%;
+      }
+ 
+      .business-card.back {
+        width: 52%;
+      }
+    }
+ 
+    @media (max-width: 430px) {
+      .container {
+        width: 92%;
+      }
+ 
+      header h1 {
+        font-size: 29px;
+      }
+ 
+      header p {
+        font-size: 13px;
+      }
+ 
+      .visual {
+        min-height: 215px;
+      }
+ 
+      .business-card {
+        padding: 15px;
+      }
+ 
+      .card-logo {
+        font-size: 19px;
+        margin-bottom: 20px;
+      }
+ 
+      .card-name {
+        font-size: 14px;
+      }
+ 
+      .card-info {
+        font-size: 7px;
+        right: 15px;
+        bottom: 12px;
+      }
+    }
+  </style>
+</head>
+ 
+<body>
+ 
+<header>
+  <div class="container">
+ 
+    <div class="badge">✦ نمونه‌کارها</div>
+ 
+    <h1>
+      نمونه <span>طراحی کارت ویزیت</span>
+    </h1>
+ 
+    <p>
+      روی هر نمونه کلیک کن تا جزئیات آن را ببینی.<br>مجموعه‌ای از طراحی‌های متفاوت برای کسب‌وکارهای مختلف؛
+      هر کارت با هویت بصری اختصاصی، ترکیب رنگ حرفه‌ای و توجه به جزئیات طراحی شده است.
+    </p>
+ 
+  </div>
+</header>
+ 
+ 
+<main class="container">
+ 
+  <div class="cards-grid">
+ 
+ 
+    <!-- 1 -->
+    <a href="#sample-royal" class="portfolio-card">
+<div class="visual">
+ 
+        <div class="business-card back royal">
+          <div class="card-logo">ROYAL</div>
+          <div class="card-info">
+            +98 912 345 6789<br>
+            royal.cafe@email.com
+          </div>
+        </div>
+ 
+        <div class="business-card royal">
+          <div class="card-logo">ROYAL</div>
+          <div class="card-name">رستوران رویال</div>
+          <div class="card-role">RESTAURANT & CAFE</div>
+          <div class="card-info">
+            Tehran • Iran
+          </div>
+        </div>
+ 
+      </div>
+ 
+      <div class="info">
+        <span class="category">رستوران و کافه</span>
+        <h2>کارت ویزیت رستوران رویال</h2>
+        <p>
+          طراحی لوکس و جذاب برای رستوران و کافه با استفاده از رنگ‌های
+          مشکی و طلایی برای ایجاد حس لوکس و خاص.
+        </p>
+        <span class="view">درخواست طراحی مشابه ←</span>
+      </div>
+</a>
+<!-- 2 -->
+    <a href="#sample-medical" class="portfolio-card">
+<div class="visual">
+ 
+        <div class="business-card back medical">
+          <div class="card-logo">+</div>
+          <div class="card-info">
+            0912 345 6789<br>
+            clinic@email.com
+          </div>
+        </div>
+ 
+        <div class="business-card medical">
+          <div class="card-logo">♡+</div>
+          <div class="card-name">دکتر مهراد کریمی</div>
+          <div class="card-role">INTERNAL MEDICINE</div>
+          <div class="card-info">
+            Tehran Medical Center
+          </div>
+        </div>
+ 
+      </div>
+ 
+      <div class="info">
+        <span class="category">پزشکی</span>
+        <h2>کارت ویزیت پزشک</h2>
+        <p>
+          طراحی تمیز و حرفه‌ای برای پزشکان و متخصصان با ترکیب رنگ
+          سفید و آبی برای ایجاد حس اعتماد.
+        </p>
+        <span class="view">درخواست طراحی مشابه ←</span>
+      </div>
+</a>
+<!-- 3 -->
+    <a href="#sample-fashion" class="portfolio-card">
+<div class="visual">
+ 
+        <div class="business-card back fashion">
+          <div class="card-logo">V</div>
+          <div class="card-info">
+            @vareno.shop<br>
+            www.vareno.ir
+          </div>
+        </div>
+ 
+        <div class="business-card fashion">
+          <div class="card-logo">VARENO</div>
+          <div class="card-name">وارنو</div>
+          <div class="card-role">FASHION HOUSE</div>
+          <div class="card-info">
+            Tehran • Iran
+          </div>
+        </div>
+ 
+      </div>
+ 
+      <div class="info">
+        <span class="category">فروشگاه پوشاک</span>
+        <h2>کارت ویزیت فروشگاه پوشاک</h2>
+        <p>
+          طراحی شیک و مدرن برای برندهای پوشاک با تمرکز روی سادگی،
+          ظرافت و جذابیت بصری.
+        </p>
+        <span class="view">درخواست طراحی مشابه ←</span>
+      </div>
+</a>
+<!-- 4 -->
+    <a href="#sample-realestate" class="portfolio-card">
+<div class="visual">
+ 
+        <div class="business-card back realestate">
+          <div class="card-logo">MH</div>
+          <div class="card-info">
+            info@modernhome.ir<br>
+            modernhome.ir
+          </div>
+        </div>
+ 
+        <div class="business-card realestate">
+          <div class="card-logo">⌂</div>
+          <div class="card-name">MODERN HOME</div>
+          <div class="card-role">REAL ESTATE</div>
+          <div class="card-info">
+            Luxury Properties
+          </div>
+        </div>
+ 
+      </div>
+ 
+      <div class="info">
+        <span class="category">املاک</span>
+        <h2>کارت ویزیت مشاور املاک</h2>
+        <p>
+          طراحی شیک و قابل اعتماد برای مشاوران املاک با ظاهر مدرن،
+          رسمی و حرفه‌ای.
+        </p>
+        <span class="view">درخواست طراحی مشابه ←</span>
+      </div>
+</a>
+<!-- 5 -->
+    <a href="#sample-tech" class="portfolio-card">
+<div class="visual">
+ 
+        <div class="business-card back tech">
+          <div class="card-logo">TP</div>
+          <div class="card-info">
+            info@techpro.ir<br>
+            techpro.ir
+          </div>
+        </div>
+ 
+        <div class="business-card tech">
+          <div class="card-logo">TP</div>
+          <div class="card-name">TECHPRO</div>
+          <div class="card-role">SMART TECHNOLOGY</div>
+          <div class="card-info">
+            Innovation • Digital
+          </div>
+        </div>
+ 
+      </div>
+ 
+      <div class="info">
+        <span class="category">فناوری</span>
+        <h2>کارت ویزیت شرکت فناوری</h2>
+        <p>
+          طراحی مدرن و خلاقانه برای شرکت‌های فناوری و استارتاپ‌ها
+          با استایل مینیمال و حرفه‌ای.
+        </p>
+        <span class="view">درخواست طراحی مشابه ←</span>
+      </div>
+</a>
+<!-- 6 -->
+    <a href="#sample-travel" class="portfolio-card">
+<div class="visual">
+ 
+        <div class="business-card back travel">
+          <div class="card-logo">✈</div>
+          <div class="card-info">
+            info@skytour.ir<br>
+            skytour.ir
+          </div>
+        </div>
+ 
+        <div class="business-card travel">
+          <div class="card-logo">✈ SKY</div>
+          <div class="card-name">SKYTOUR</div>
+          <div class="card-role">TRAVEL & TOURISM</div>
+          <div class="card-info">
+            Explore The World
+          </div>
+        </div>
+ 
+      </div>
+ 
+      <div class="info">
+        <span class="category">گردشگری</span>
+        <h2>کارت ویزیت آژانس مسافرتی</h2>
+        <p>
+          طراحی پرانرژی و جذاب برای آژانس‌های گردشگری با استفاده
+          از رنگ‌های آبی و تصاویر الهام‌بخش سفر.
+        </p>
+        <span class="view">درخواست طراحی مشابه ←</span>
+      </div>
+</a>
+<!-- 7 -->
+    <a href="#sample-barber" class="portfolio-card">
+<div class="visual has-photo" style="background-image:url('https://loremflickr.com/640/480/barbershop,barber')">
+ 
+        <div class="business-card back barber">
+          <div class="card-logo">G</div>
+          <div class="card-info">
+            @gentleman.barber<br>
+            Tehran • Iran
+          </div>
+        </div>
+ 
+        <div class="business-card barber">
+          <div class="card-logo">GENTLEMAN</div>
+          <div class="card-name">جنتلمن</div>
+          <div class="card-role">BARBERSHOP</div>
+          <div class="card-info">
+            STYLE • CLASS • MEN
+          </div>
+        </div>
+ 
+      </div>
+ 
+      <div class="info">
+        <span class="category">آرایشگاه مردانه</span>
+        <h2>کارت ویزیت آرایشگاه</h2>
+        <p>
+          طراحی خاص و متفاوت برای آرایشگاه‌های مردانه با استایل
+          تیره، مدرن و جذاب.
+        </p>
+        <span class="view">درخواست طراحی مشابه ←</span>
+      </div>
+</a>
+<!-- 8 -->
+    <a href="#sample-creative" class="portfolio-card">
+<div class="visual">
+ 
+        <div class="business-card back creative">
+          <div class="card-logo">N</div>
+          <div class="card-info">
+            hello@nova.studio<br>
+            nova.studio
+          </div>
+        </div>
+ 
+        <div class="business-card creative">
+          <div class="card-logo">NOVA</div>
+          <div class="card-name">NOVA STUDIO</div>
+          <div class="card-role">CREATIVE STUDIO</div>
+          <div class="card-info">
+            DESIGN • BRANDING
+          </div>
+        </div>
+ 
+      </div>
+ 
+      <div class="info">
+        <span class="category">طراحی و گرافیک</span>
+        <h2>کارت ویزیت استودیو طراحی</h2>
+        <p>
+          کارت ویزیت خلاقانه و رنگارنگ برای استودیوهای طراحی،
+          تبلیغات و برندینگ.
+        </p>
+        <span class="view">درخواست طراحی مشابه ←</span>
+      </div>
+ 
+    </a>
+ 
+  </div>
+ 
+ 
+  <section class="bottom">
+    <h2>کارت ویزیت اختصاصی می‌خوای؟</h2>
+    <p>
+      برای طراحی یک کارت ویزیت حرفه‌ای و متناسب با کسب‌وکارت،
+      می‌تونی از طریق سایت سفارش بدی.
+    </p>
+  </section>
+ 
+</main>
+  <div id="sample-royal" class="sample-modal"><div class="modal-box"><a href="#" class="modal-close">×</a><span class="category">رستوران و کافه</span><h2>کارت ویزیت رستوران رویال</h2><p>طراحی لوکس و جذاب برای رستوران و کافه با ترکیب مشکی و طلایی. این نمونه برای نمایش توانایی طراحی هویت بصری و کارت ویزیت آماده شده است.</p><div class="modal-actions"><a class="modal-btn primary" href="index.html#order">سفارش طراحی مشابه</a><a class="modal-btn" href="#">بستن</a></div></div></div>
+  <div id="sample-medical" class="sample-modal"><div class="modal-box"><a href="#" class="modal-close">×</a><span class="category">پزشکی</span><h2>کارت ویزیت پزشک</h2><p>طراحی تمیز و حرفه‌ای با ترکیب سفید و آبی برای ایجاد حس اعتماد و آرامش.</p><div class="modal-actions"><a class="modal-btn primary" href="index.html#order">سفارش طراحی مشابه</a><a class="modal-btn" href="#">بستن</a></div></div></div>
+  <div id="sample-fashion" class="sample-modal"><div class="modal-box"><a href="#" class="modal-close">×</a><span class="category">فروشگاه پوشاک</span><h2>کارت ویزیت فروشگاه پوشاک</h2><p>طراحی شیک و مدرن برای برندهای پوشاک با تمرکز روی سادگی، ظرافت و جذابیت بصری.</p><div class="modal-actions"><a class="modal-btn primary" href="index.html#order">سفارش طراحی مشابه</a><a class="modal-btn" href="#">بستن</a></div></div></div>
+  <div id="sample-realestate" class="sample-modal"><div class="modal-box"><a href="#" class="modal-close">×</a><span class="category">املاک</span><h2>کارت ویزیت مشاور املاک</h2><p>طراحی شیک و قابل اعتماد برای مشاوران املاک با ظاهر مدرن، رسمی و حرفه‌ای.</p><div class="modal-actions"><a class="modal-btn primary" href="index.html#order">سفارش طراحی مشابه</a><a class="modal-btn" href="#">بستن</a></div></div></div>
+  <div id="sample-tech" class="sample-modal"><div class="modal-box"><a href="#" class="modal-close">×</a><span class="category">فناوری</span><h2>کارت ویزیت شرکت فناوری</h2><p>طراحی مدرن و خلاقانه برای شرکت‌های فناوری و استارتاپ‌ها با استایل مینیمال و حرفه‌ای.</p><div class="modal-actions"><a class="modal-btn primary" href="index.html#order">سفارش طراحی مشابه</a><a class="modal-btn" href="#">بستن</a></div></div></div>
+  <div id="sample-travel" class="sample-modal"><div class="modal-box"><a href="#" class="modal-close">×</a><span class="category">گردشگری</span><h2>کارت ویزیت آژانس مسافرتی</h2><p>طراحی پرانرژی و جذاب برای آژانس‌های گردشگری با استایل مناسب سفر و گردشگری.</p><div class="modal-actions"><a class="modal-btn primary" href="index.html#order">سفارش طراحی مشابه</a><a class="modal-btn" href="#">بستن</a></div></div></div>
+  <div id="sample-barber" class="sample-modal"><div class="modal-box"><a href="#" class="modal-close">×</a><span class="category">آرایشگاه مردانه</span><h2>کارت ویزیت آرایشگاه</h2><p>طراحی خاص و متفاوت برای آرایشگاه‌های مردانه با استایل تیره، مدرن و جذاب.</p><div class="modal-actions"><a class="modal-btn primary" href="index.html#order">سفارش طراحی مشابه</a><a class="modal-btn" href="#">بستن</a></div></div></div>
+  <div id="sample-creative" class="sample-modal"><div class="modal-box"><a href="#" class="modal-close">×</a><span class="category">طراحی و گرافیک</span><h2>کارت ویزیت استودیو طراحی</h2><p>کارت ویزیت خلاقانه برای استودیوهای طراحی، تبلیغات و برندینگ.</p><div class="modal-actions"><a class="modal-btn primary" href="index.html#order">سفارش طراحی مشابه</a><a class="modal-btn" href="#">بستن</a></div></div></div>
+ 
+<script>
+  const cards = document.querySelectorAll(".portfolio-card");
+  if ("IntersectionObserver" in window) {
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add("in-view"), i * 70);
+          obs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    cards.forEach(card => obs.observe(card));
+  } else {
+    cards.forEach(card => card.classList.add("in-view"));
+  }
+</script>
+ 
+</body>
+</html>

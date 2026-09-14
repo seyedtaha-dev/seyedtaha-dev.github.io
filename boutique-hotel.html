@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="اقامتگاه سرو؛ تجربه‌ای آرام در دل معماری سنتی و طبیعت.">
+  <title>اقامتگاه سرو | تجربه‌ای آرام در دل طبیعت</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --green:#18392f;
+      --green-2:#0f2821;
+      --green-3:#254b3f;
+      --gold:#c7a24a;
+      --gold-light:#dfc878;
+      --cream:#f7f3ea;
+      --paper:#fffdf8;
+      --line:#e2dac8;
+      --text:#17332b;
+      --muted:#69766f;
+      --white:#fff;
+      --shadow:0 22px 60px rgba(15,40,33,.10);
+      --radius:10px;
+    }
+
+    *{margin:0;padding:0;box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      font-family:"Vazirmatn",Tahoma,sans-serif;
+      background:var(--cream);
+      color:var(--text);
+      line-height:1.85;
+      overflow-x:hidden;
+    }
+    body.menu-open{overflow:hidden}
+    a{text-decoration:none;color:inherit}
+    button,input{font:inherit}
+    button{cursor:pointer}
+    .container{width:min(1160px,calc(100% - 40px));margin:auto}
+
+    /* ---------- Utility ---------- */
+    .reveal{
+      opacity:0;
+      transform:translateY(30px);
+      transition:opacity .8s ease,transform .8s ease;
+    }
+    .reveal.show{opacity:1;transform:translateY(0)}
+    .section{padding:105px 0}
+    .section-label{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      color:var(--gold);
+      font-size:.82rem;
+      font-weight:800;
+      letter-spacing:.8px;
+    }
+    .section-label::before{
+      content:"";
+      width:32px;height:1px;background:var(--gold);
+    }
+    .section-title{
+      margin-top:12px;
+      font-size:clamp(2rem,4vw,3rem);
+      line-height:1.45;
+      font-weight:900;
+    }
+    .section-desc{
+      margin-top:12px;
+      color:var(--muted);
+      max-width:600px;
+    }
+
+    /* ---------- Header ---------- */
+    .site-header{
+      position:absolute;
+      inset:0 0 auto;
+      z-index:100;
+      padding:24px 0;
+      color:#fff;
+      transition:.3s ease;
+    }
+    .site-header.scrolled{
+      position:fixed;
+      background:rgba(15,40,33,.94);
+      backdrop-filter:blur(14px);
+      box-shadow:0 8px 30px rgba(0,0,0,.12);
+    }
+    .nav-wrap{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:28px;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:11px;
+      font-weight:900;
+      font-size:1.2rem;
+      white-space:nowrap;
+    }
+    .brand-mark{
+      width:38px;height:38px;
+      border:1px solid rgba(199,162,74,.75);
+      color:var(--gold-light);
+      display:grid;
+      place-items:center;
+      border-radius:50%;
+      font-size:1.05rem;
+    }
+    .brand span{color:var(--gold-light)}
+    .main-nav{display:flex;align-items:center;gap:28px;font-size:.88rem}
+    .main-nav a{color:#eee9dd;transition:.25s}
+    .main-nav a:hover{color:var(--gold-light)}
+    .header-cta{
+      padding:10px 20px;
+      border:1px solid var(--gold);
+      color:var(--gold-light);
+      border-radius:4px;
+      font-size:.82rem;
+      font-weight:800;
+      transition:.25s;
+    }
+    .header-cta:hover{background:var(--gold);color:var(--green-2)}
+
+    .menu-toggle{
+      display:none;
+      width:42px;height:42px;
+      border:1px solid rgba(255,255,255,.35);
+      background:transparent;
+      color:#fff;border-radius:5px;
+      font-size:1.25rem;
+    }
+
+    /* ---------- Hero ---------- */
+    .hero{
+      min-height:820px;
+      position:relative;
+      display:flex;
+      align-items:center;
+      overflow:hidden;
+      color:#fff;
+    }
+    .hero-bg{
+      position:absolute;
+      inset:0;
+      background:
+        linear-gradient(90deg,rgba(7,27,21,.91) 0%,rgba(7,27,21,.62) 46%,rgba(7,27,21,.22) 100%),
+        url("images/room-garden.jpg") center/cover no-repeat;
+    }
+    .hero-bg::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:radial-gradient(circle at 78% 35%,rgba(199,162,74,.16),transparent 28%);
+    }
+    .hero-content{position:relative;z-index:2;padding-top:70px}
+    .hero-kicker{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      color:var(--gold-light);
+      font-size:.88rem;
+      font-weight:700;
+    }
+    .hero-kicker::before{
+      content:"";
+      width:42px;height:1px;background:var(--gold);
+    }
+    .hero h1{
+      margin-top:20px;
+      max-width:760px;
+      font-size:clamp(3rem,7vw,5.8rem);
+      line-height:1.3;
+      font-weight:900;
+      letter-spacing:-1px;
+    }
+    .hero h1 span{color:var(--gold-light)}
+    .hero-text{
+      margin-top:22px;
+      max-width:590px;
+      color:#e5dfd0;
+      font-size:1.02rem;
+    }
+
+    /* ---------- Booking ---------- */
+    .booking-box{
+      margin-top:38px;
+      width:min(790px,100%);
+      padding:20px;
+      display:grid;
+      grid-template-columns:1fr 1fr 1fr auto;
+      gap:14px;
+      background:rgba(12,38,30,.72);
+      border:1px solid rgba(255,255,255,.18);
+      border-radius:8px;
+      backdrop-filter:blur(12px);
+      box-shadow:0 25px 70px rgba(0,0,0,.18);
+    }
+    .field label{
+      display:block;
+      color:#cfc8b7;
+      font-size:.72rem;
+      margin-bottom:4px;
+    }
+    .field input{
+      width:100%;
+      color:#fff;
+      background:transparent;
+      border:0;
+      border-bottom:1px solid rgba(255,255,255,.3);
+      padding:8px 2px;
+      outline:none;
+    }
+    .field input::placeholder{color:rgba(255,255,255,.62)}
+    .booking-btn{
+      border:0;
+      background:var(--gold);
+      color:var(--green-2);
+      padding:0 24px;
+      min-height:48px;
+      border-radius:5px;
+      font-weight:900;
+      transition:.25s;
+    }
+    .booking-btn:hover{background:var(--gold-light);transform:translateY(-2px)}
+
+    /* ---------- Intro ---------- */
+    .intro{
+      background:var(--paper);
+      border-bottom:1px solid var(--line);
+    }
+    .intro-grid{
+      display:grid;
+      grid-template-columns:1.05fr .95fr;
+      gap:70px;
+      align-items:center;
+    }
+    .intro-copy p{
+      margin-top:18px;
+      color:var(--muted);
+      font-size:.96rem;
+    }
+    .stats{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:0;
+      margin-top:32px;
+      border-top:1px solid var(--line);
+    }
+    .stat{padding:20px 15px 0}
+    .stat+.stat{border-right:1px solid var(--line)}
+    .stat strong{display:block;font-size:1.5rem;color:var(--green)}
+    .stat span{font-size:.76rem;color:var(--muted)}
+    .intro-card{
+      min-height:350px;
+      position:relative;
+      padding:34px;
+      overflow:hidden;
+      background:var(--green);
+      color:#fff;
+      border-radius:8px;
+    }
+    .intro-card::before{
+      content:"";
+      position:absolute;
+      width:250px;height:250px;
+      left:-80px;bottom:-120px;
+      border:1px solid rgba(199,162,74,.35);
+      border-radius:50%;
+    }
+    .intro-card::after{
+      content:"";
+      position:absolute;
+      width:180px;height:180px;
+      left:-40px;bottom:-80px;
+      border:1px solid rgba(199,162,74,.2);
+      border-radius:50%;
+    }
+    .intro-card-content{position:relative;z-index:2}
+    .intro-card .small{
+      color:var(--gold-light);
+      font-size:.8rem;font-weight:800;
+    }
+    .intro-card h3{margin-top:12px;font-size:1.7rem}
+    .intro-card p{margin-top:10px;color:#d6ded9;font-size:.88rem;max-width:390px}
+    .intro-card .ornament{
+      margin-top:35px;
+      width:70px;height:70px;
+      border:1px solid var(--gold);
+      border-radius:50%;
+      display:grid;place-items:center;
+      color:var(--gold-light);
+      font-size:1.6rem;
+    }
+
+    /* ---------- Rooms ---------- */
+    .rooms-head{
+      display:flex;
+      align-items:end;
+      justify-content:space-between;
+      gap:30px;
+      margin-bottom:45px;
+    }
+    .rooms-grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:22px;
+    }
+    .room-card{
+      background:var(--paper);
+      border:1px solid var(--line);
+      border-radius:8px;
+      overflow:hidden;
+      box-shadow:0 16px 45px rgba(18,38,32,.06);
+      transition:.4s ease;
+    }
+    .room-card:hover{
+      transform:translateY(-9px);
+      box-shadow:var(--shadow);
+    }
+    .room-photo{
+      height:310px;
+      overflow:hidden;
+      background:#ddd;
+      position:relative;
+    }
+    .room-photo img{
+      width:100%;height:100%;
+      object-fit:cover;
+      transition:transform .7s ease;
+    }
+    .room-card:hover .room-photo img{transform:scale(1.06)}
+    .room-badge{
+      position:absolute;
+      top:16px;right:16px;
+      padding:6px 11px;
+      background:rgba(255,253,248,.92);
+      color:var(--green);
+      font-size:.7rem;
+      font-weight:800;
+      border-radius:3px;
+    }
+    .room-info{padding:23px}
+    .room-info h3{font-size:1.15rem;font-weight:900}
+    .room-info > p{margin-top:6px;color:var(--muted);font-size:.82rem}
+    .room-meta{
+      display:flex;
+      align-items:center;
+      gap:15px;
+      margin-top:15px;
+      color:#7a857f;
+      font-size:.72rem;
+    }
+    .room-meta span{display:flex;align-items:center;gap:5px}
+    .room-footer{
+      margin-top:20px;
+      padding-top:17px;
+      border-top:1px solid #ece5d8;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+    }
+    .room-price strong{font-size:1.15rem;color:var(--green)}
+    .room-price small{color:#89938d;font-size:.72rem;margin-right:4px}
+    .room-arrow{
+      width:40px;height:40px;
+      border:1px solid var(--gold);
+      color:#98772f;
+      display:grid;place-items:center;
+      border-radius:50%;
+      transition:.25s;
+    }
+    .room-card:hover .room-arrow{
+      background:var(--green);
+      color:var(--gold-light);
+    }
+
+    /* ---------- Amenities ---------- */
+    .amenities-section{background:#efe9dc}
+    .amenities-grid{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      border-top:1px solid #d8ceba;
+      border-bottom:1px solid #d8ceba;
+    }
+    .amenity{
+      padding:34px 20px;
+      text-align:center;
+    }
+    .amenity+.amenity{border-right:1px solid #d8ceba}
+    .amenity-icon{
+      width:58px;height:58px;
+      margin:0 auto 14px;
+      border:1px solid var(--gold);
+      color:var(--gold);
+      border-radius:50%;
+      display:grid;place-items:center;
+      font-size:1.2rem;
+      background:rgba(24,57,47,.05);
+    }
+    .amenity h4{font-size:.95rem}
+    .amenity p{margin-top:6px;color:var(--muted);font-size:.77rem}
+
+    /* ---------- Experience ---------- */
+    .experience-grid{
+      display:grid;
+      grid-template-columns:.9fr 1.1fr;
+      gap:70px;
+      align-items:center;
+    }
+    .experience-list{margin-top:28px;display:grid;gap:17px}
+    .experience-item{
+      display:flex;
+      gap:14px;
+      align-items:flex-start;
+    }
+    .experience-number{
+      min-width:34px;height:34px;
+      border:1px solid var(--gold);
+      color:#9a7932;
+      border-radius:50%;
+      display:grid;place-items:center;
+      font-size:.72rem;font-weight:800;
+    }
+    .experience-item h4{font-size:.92rem}
+    .experience-item p{margin-top:3px;color:var(--muted);font-size:.78rem}
+    .experience-visual{
+      min-height:420px;
+      position:relative;
+      border-radius:8px;
+      overflow:hidden;
+      background:
+        linear-gradient(135deg,rgba(24,57,47,.8),rgba(15,40,33,.25)),
+        url("images/room-deluxe.jpg") center/cover no-repeat;
+    }
+    .experience-label{
+      position:absolute;
+      left:24px;bottom:24px;
+      right:24px;
+      padding:18px 20px;
+      background:rgba(15,40,33,.82);
+      color:#fff;
+      border-right:2px solid var(--gold);
+      backdrop-filter:blur(8px);
+    }
+    .experience-label strong{display:block;color:var(--gold-light)}
+    .experience-label span{font-size:.76rem;color:#d5dcd8}
+
+    /* ---------- Testimonial ---------- */
+    .testimonial{
+      background:var(--green);
+      color:#fff;
+      text-align:center;
+    }
+    .testimonial-inner{width:min(760px,calc(100% - 40px));margin:auto}
+    .stars{color:var(--gold-light);letter-spacing:5px;font-size:1rem}
+    .quote{
+      margin-top:18px;
+      font-size:clamp(1.2rem,2.5vw,1.55rem);
+      font-weight:300;
+      line-height:2;
+    }
+    .author{margin-top:18px;color:#cfc6ae;font-size:.8rem}
+
+    /* ---------- CTA ---------- */
+    .cta{text-align:center;background:var(--paper)}
+    .cta .section-desc{margin-left:auto;margin-right:auto}
+    .primary-btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      margin-top:26px;
+      padding:14px 32px;
+      background:var(--green);
+      color:#fff;
+      border-radius:5px;
+      font-weight:800;
+      transition:.25s;
+    }
+    .primary-btn:hover{
+      background:var(--green-2);
+      transform:translateY(-2px);
+    }
+
+    /* ---------- Footer ---------- */
+    footer{
+      background:var(--green-2);
+      color:#c0c9c4;
+      padding:28px 0;
+    }
+    .footer-inner{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:20px;
+    }
+    .footer-brand{font-weight:800;color:#fff}
+    .footer-brand span{color:var(--gold-light)}
+    .footer-note{font-size:.74rem}
+
+    /* ---------- Responsive ---------- */
+    @media(max-width:950px){
+      .main-nav,.header-cta{display:none}
+      .menu-toggle{display:block}
+      .booking-box{grid-template-columns:1fr 1fr}
+      .rooms-grid{grid-template-columns:1fr 1fr}
+      .amenities-grid{grid-template-columns:1fr 1fr}
+      .amenity:nth-child(3),
+      .amenity:nth-child(4){border-top:1px solid #d8ceba}
+      .experience-grid,.intro-grid{grid-template-columns:1fr;gap:40px}
+      .experience-visual{min-height:360px}
+    }
+
+    @media(max-width:650px){
+      .container{width:min(100% - 28px,1160px)}
+      .section{padding:72px 0}
+      .hero{min-height:760px}
+      .hero h1{font-size:2.7rem}
+      .hero-text{font-size:.92rem}
+      .booking-box{grid-template-columns:1fr}
+      .booking-btn{padding:13px}
+      .rooms-head{display:block}
+      .rooms-grid{grid-template-columns:1fr}
+      .room-photo{height:270px}
+      .amenities-grid{grid-template-columns:1fr}
+      .amenity+.amenity{border-right:0;border-top:1px solid #d8ceba}
+      .amenity:nth-child(3){border-top:1px solid #d8ceba}
+      .stats{grid-template-columns:1fr 1fr 1fr}
+      .stat{padding:15px 7px 0}
+      .stat strong{font-size:1.2rem}
+      .stat span{font-size:.65rem}
+      .intro-card{min-height:310px}
+      .footer-inner{flex-direction:column;text-align:center}
+    }
+
+    /* Mobile menu */
+    .mobile-menu{
+      display:none;
+      position:fixed;
+      inset:0;
+      z-index:90;
+      background:rgba(15,40,33,.98);
+      padding:110px 28px 30px;
+    }
+    .mobile-menu.open{display:block}
+    .mobile-menu a{
+      display:block;
+      padding:17px 0;
+      color:#fff;
+      border-bottom:1px solid rgba(255,255,255,.12);
+      font-size:1rem;
+    }
+    .mobile-menu a:hover{color:var(--gold-light)}
+  </style>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header" id="siteHeader">
+    <div class="container nav-wrap">
+      <a href="#home" class="brand">
+        <span class="brand-mark">⌂</span>
+        اقامتگاه <span>سرو</span>
+      </a>
+
+      <nav class="main-nav" aria-label="منوی اصلی">
+        <a href="#home">خانه</a>
+        <a href="#rooms">اتاق‌ها</a>
+        <a href="#amenities">امکانات</a>
+        <a href="#experience">تجربه اقامت</a>
+        <a href="#contact">تماس</a>
+      </nav>
+
+      <a href="#contact" class="header-cta">رزرو اتاق</a>
+
+      <button class="menu-toggle" id="menuToggle" aria-label="باز کردن منو">☰</button>
+    </div>
+  </header>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#home">خانه</a>
+    <a href="#rooms">اتاق‌ها</a>
+    <a href="#amenities">امکانات</a>
+    <a href="#experience">تجربه اقامت</a>
+    <a href="#contact">تماس</a>
+  </div>
+
+  <!-- HERO -->
+  <main>
+    <section class="hero" id="home">
+      <div class="hero-bg"></div>
+
+      <div class="container hero-content">
+        <span class="hero-kicker">اقامتی آرام، در دل طبیعت</span>
+
+        <h1>
+          جایی برای<br>
+          <span>نفس‌کشیدن</span> دوباره
+        </h1>
+
+        <p class="hero-text">
+          اقامتگاه سرو، ترکیبی از معماری سنتی، طبیعت و آسایش مدرن؛
+          فضایی برای فاصله گرفتن از شلوغی شهر و ساختن خاطراتی ماندگار.
+        </p>
+
+        <form class="booking-box" id="bookingForm">
+          <div class="field">
+            <label for="checkin">تاریخ ورود</label>
+            <input id="checkin" type="text" placeholder="۱۴۰۵/۰۷/۱۲">
+          </div>
+
+          <div class="field">
+            <label for="checkout">تاریخ خروج</label>
+            <input id="checkout" type="text" placeholder="۱۴۰۵/۰۷/۱۵">
+          </div>
+
+          <div class="field">
+            <label for="guests">تعداد مهمان</label>
+            <input id="guests" type="text" placeholder="۲ نفر">
+          </div>
+
+          <button class="booking-btn" type="submit">بررسی رزرو</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- INTRO -->
+    <section class="section intro reveal">
+      <div class="container intro-grid">
+        <div class="intro-copy">
+          <span class="section-label">درباره اقامتگاه</span>
+          <h2 class="section-title">آرامش را در جزئیات پیدا کن</h2>
+          <p>
+            در سرو، هر گوشه با الهام از معماری اصیل ایرانی طراحی شده است؛
+            از حیاط سبز و اتاق‌های گرم تا فضاهایی که برای استراحت و دور شدن
+            از روزمرگی ساخته شده‌اند.
+          </p>
+
+          <div class="stats">
+            <div class="stat">
+              <strong>۱۲+</strong>
+              <span>سال تجربه</span>
+            </div>
+            <div class="stat">
+              <strong>۱۸</strong>
+              <span>اتاق و سوئیت</span>
+            </div>
+            <div class="stat">
+              <strong>۴.۹</strong>
+              <span>امتیاز مهمانان</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="intro-card">
+          <div class="intro-card-content">
+            <span class="small">یک تجربه متفاوت</span>
+            <h3>سنت، طبیعت، آرامش</h3>
+            <p>
+              صبح را با صدای آب و پرندگان شروع کن و شب را در فضایی آرام
+              و دور از هیاهوی شهر به پایان برسان.
+            </p>
+            <div class="ornament">✦</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ROOMS -->
+    <section class="section reveal" id="rooms">
+      <div class="container">
+        <div class="rooms-head">
+          <div>
+            <span class="section-label">اتاق‌ها و سوئیت‌ها</span>
+            <h2 class="section-title">اتاقی که دوست داری توش بمونی</h2>
+            <p class="section-desc">هر اتاق با طراحی متفاوت، امکانات کامل و حال‌وهوای مخصوص خودش.</p>
+          </div>
+        </div>
+
+        <div class="rooms-grid">
+
+          <article class="room-card">
+            <div class="room-photo">
+              <img src="images/room-garden.jpg"
+                   onerror="this.onerror=null;this.src='room-garden.jpg'"
+                   alt="اتاق باغ با نمای مستقیم به باغ سنتی"
+                   loading="lazy">
+              <span class="room-badge">محبوب‌ترین</span>
+            </div>
+            <div class="room-info">
+              <h3>اتاق باغ</h3>
+              <p>نمای مستقیم به باغ سنتی</p>
+              <div class="room-meta">
+                <span>◷ ۲ نفر</span>
+                <span>▣ ۳۵ متر</span>
+              </div>
+              <div class="room-footer">
+                <div class="room-price">
+                  <strong>۳.۲ میلیون</strong>
+                  <small>هر شب</small>
+                </div>
+                <span class="room-arrow">←</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="room-card">
+            <div class="room-photo">
+              <img src="images/room-family.jpg"
+                   onerror="this.onerror=null;this.src='room-family.jpg'"
+                   alt="سوئیت خانوادگی مناسب اقامت چهار نفر"
+                   loading="lazy">
+              <span class="room-badge">خانوادگی</span>
+            </div>
+            <div class="room-info">
+              <h3>سوئیت خانوادگی</h3>
+              <p>مناسب اقامت ۴ نفره</p>
+              <div class="room-meta">
+                <span>◷ ۴ نفر</span>
+                <span>▣ ۶۵ متر</span>
+              </div>
+              <div class="room-footer">
+                <div class="room-price">
+                  <strong>۴.۸ میلیون</strong>
+                  <small>هر شب</small>
+                </div>
+                <span class="room-arrow">←</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="room-card">
+            <div class="room-photo">
+              <img src="images/room-deluxe.jpg"
+                   onerror="this.onerror=null;this.src='room-deluxe.jpg'"
+                   alt="اتاق دلوکس با بالکن اختصاصی"
+                   loading="lazy">
+              <span class="room-badge">ویژه</span>
+            </div>
+            <div class="room-info">
+              <h3>اتاق دلوکس</h3>
+              <p>با بالکن اختصاصی و چشم‌انداز زیبا</p>
+              <div class="room-meta">
+                <span>◷ ۲ نفر</span>
+                <span>▣ ۴۵ متر</span>
+              </div>
+              <div class="room-footer">
+                <div class="room-price">
+                  <strong>۵.۵ میلیون</strong>
+                  <small>هر شب</small>
+                </div>
+                <span class="room-arrow">←</span>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- AMENITIES -->
+    <section class="section amenities-section reveal" id="amenities">
+      <div class="container">
+        <div class="section-head">
+          <span class="section-label">امکانات</span>
+          <h2 class="section-title">همه‌چیز برای یک اقامت خوب</h2>
+        </div>
+
+        <div class="amenities-grid">
+          <div class="amenity">
+            <div class="amenity-icon">♧</div>
+            <h4>باغ سنتی</h4>
+            <p>فضای سبز اختصاصی و آرام</p>
+          </div>
+
+          <div class="amenity">
+            <div class="amenity-icon">⌁</div>
+            <h4>رستوران محلی</h4>
+            <p>غذاهای اصیل ایرانی</p>
+          </div>
+
+          <div class="amenity">
+            <div class="amenity-icon">✦</div>
+            <h4>حمام سنتی</h4>
+            <p>اسپا و خدمات آرامش‌بخش</p>
+          </div>
+
+          <div class="amenity">
+            <div class="amenity-icon">⌂</div>
+            <h4>پارکینگ اختصاصی</h4>
+            <p>امن و مناسب مهمانان</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section class="section reveal" id="experience">
+      <div class="container experience-grid">
+        <div>
+          <span class="section-label">تجربه اقامت</span>
+          <h2 class="section-title">اینجا قرار نیست فقط یک شب بمانی</h2>
+          <p class="section-desc">
+            از اولین لحظه ورود تا زمان خداحافظی، جزئیات برای ساختن
+            یک تجربه آرام و متفاوت کنار هم قرار گرفته‌اند.
+          </p>
+
+          <div class="experience-list">
+            <div class="experience-item">
+              <span class="experience-number">۰۱</span>
+              <div>
+                <h4>پذیرایی گرم و صمیمی</h4>
+                <p>شروع اقامت با استقبال و همراهی تیم سرو.</p>
+              </div>
+            </div>
+
+            <div class="experience-item">
+              <span class="experience-number">۰۲</span>
+              <div>
+                <h4>فضای آرام و خصوصی</h4>
+                <p>اتاق‌هایی برای استراحت واقعی و دور از شلوغی.</p>
+              </div>
+            </div>
+
+            <div class="experience-item">
+              <span class="experience-number">۰۳</span>
+              <div>
+                <h4>طعم اصیل محلی</h4>
+                <p>غذاهایی با الهام از آشپزی سنتی منطقه.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="experience-visual">
+          <div class="experience-label">
+            <strong>اقامتگاه سرو</strong>
+            <span>جایی برای آرام‌تر زندگی کردن، حتی برای چند روز.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TESTIMONIAL -->
+    <section class="section testimonial reveal">
+      <div class="testimonial-inner">
+        <div class="stars">★★★★★</div>
+        <p class="quote">
+          «از لحظه ورود تا خروج، همه‌چیز با آرامش و توجه به جزئیات همراه بود.
+          قطعاً دوباره به سرو برمی‌گردیم.»
+        </p>
+        <div class="author">— خانواده احمدی</div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="section cta reveal" id="contact">
+      <div class="container">
+        <span class="section-label">رزرو اقامت</span>
+        <h2 class="section-title">اقامت بعدیت رو همین‌جا شروع کن</h2>
+        <p class="section-desc">
+          برای رزرو اتاق یا دریافت اطلاعات بیشتر با ما در تماس باشید.
+        </p>
+        <a href="index.html#order" class="primary-btn">ثبت سفارش ←</a>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container footer-inner">
+      <div class="footer-brand">اقامتگاه <span>سرو</span></div>
+      <div class="footer-note">این یک نمونه‌کار مفهومی است — طراحی: سید طاها تقوی</div>
+    </div>
+  </footer>
+
+  <script>
+    // Header on scroll
+    const header = document.getElementById("siteHeader");
+
+    function updateHeader(){
+      header.classList.toggle("scrolled", window.scrollY > 40);
+    }
+
+    window.addEventListener("scroll", updateHeader);
+    updateHeader();
+
+    // Mobile menu
+    const menuToggle = document.getElementById("menuToggle");
+    const mobileMenu = document.getElementById("mobileMenu");
+
+    menuToggle.addEventListener("click", () => {
+      mobileMenu.classList.toggle("open");
+      document.body.classList.toggle("menu-open");
+      menuToggle.textContent = mobileMenu.classList.contains("open") ? "×" : "☰";
+    });
+
+    mobileMenu.querySelectorAll("a").forEach(link => {
+      link.addEventListener("click", () => {
+        mobileMenu.classList.remove("open");
+        document.body.classList.remove("menu-open");
+        menuToggle.textContent = "☰";
+      });
+    });
+
+    // Reveal animations
+    const revealElements = document.querySelectorAll(".reveal");
+
+    if ("IntersectionObserver" in window) {
+      const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("show");
+            obs.unobserve(entry.target);
+          }
+        });
+      }, {threshold:.12});
+
+      revealElements.forEach(el => observer.observe(el));
+    } else {
+      revealElements.forEach(el => el.classList.add("show"));
+    }
+
+    // Booking demo
+    document.getElementById("bookingForm").addEventListener("submit", function(e){
+      e.preventDefault();
+      alert("این بخش در نسخه نمونه‌کار نمایشی است و برای اتصال به سیستم رزرو آماده شده است.");
+    });
+  </script>
+
+</body>
+</html>
